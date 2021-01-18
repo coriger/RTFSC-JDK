@@ -1,7 +1,8 @@
 <div align="center">
   <img src="./assets/rtfsc-jdk-icon.png" alt="RTFSC-JDK Icon">
-  <img alt="Netlify" src="https://img.shields.io/netlify/55b8443d-bcdd-4762-bfeb-a016cdebdbb1?style=plastic">
-  <img alt="GitHub" src="https://img.shields.io/github/license/HurleyJames/RTFSC-JDK?style=plastic">
+  <br>
+  <img alt="Netlify" src="https://img.shields.io/netlify/55b8443d-bcdd-4762-bfeb-a016cdebdbb1?style=plastic">&nbsp;
+  <img alt="GitHub" src="https://img.shields.io/github/license/HurleyJames/RTFSC-JDK?style=plastic">&nbsp;
   <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/HurleyJames/RTFSC-JDK?style=plastic">
 </div>
 
