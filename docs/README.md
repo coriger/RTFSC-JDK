@@ -7,11 +7,11 @@ actionText: 进入源码笔记 → # 首页跳转按钮的内容
 actionLink: /notes/
 features: # 表明首页的特征，固定的格式为title + details，以三栏流式布局的方式展示
   - title: 📦 开箱即用
-    details: 将项目克隆或下载到本地，然后使用IntelliJ IDEA打开即可阅读
+    details: 笔记部分直接在此阅读，源码部分可以将项目克隆或下载到本地后，使用IntelliJ IDEA打开
   - title: 🔋 VuePress驱动
     details: 以Markdown为中心的项目结构，打造阅读记录分析JDK源码的知识笔记
   - title: 👨🏻‍💻 关于我
-    details: 🎓 一名刚毕业的 🇬🇧 利兹大学 Advanced Computer Science(AI) 硕士
+    details: 🎓 一名刚毕业的 🇬🇧 利兹大学 Advanced Computer Science(Artificial Intelligence) 硕士
 footer: MIT Licensed | Copyright © 2021-present Hurley Huang # 为底部内容，与普通的网页一样，我们可以在footer里面写版权信息
 ---
 
@@ -19,7 +19,7 @@ footer: MIT Licensed | Copyright © 2021-present Hurley Huang # 为底部内容�
 
 > Reading The Fucking Source Code of JDK.
 
-本项目主要是存放JDK11的**源码**与**笔记**，建议在`OracleJDK / OpenJDK 11`的环境下阅读代码，阅读过程中产生的部分笔记会以**注释**的形式写在源码中，完整的笔记文档即`docs`中的内容，部署在[网站]()中。
+本项目主要是存放JDK11的**源码**与**笔记**，建议在`OracleJDK / OpenJDK 11`的环境下阅读代码，阅读过程中产生的部分笔记会以**注释**的形式写在源码中，完整的笔记文档即`docs`中的内容，部署在[本网站](https://rtfsc.hurley.fun/)中。
 
 ## 📝 使用说明
 
