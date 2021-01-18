@@ -11,6 +11,10 @@
     "author": "Hurley",
     "license": "MIT",
     "devDependencies": {
+        "@vuepress/plugin-back-to-top": "^1.8.0",
         "vuepress": "^1.8.0"
+    },
+    "dependencies": {
+        "vuepress-plugin-code-copy": "^1.0.6"
     }
 }

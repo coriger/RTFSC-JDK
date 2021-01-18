@@ -8,10 +8,19 @@ module.exports = {
     keywords: 'RTFSC, JDK, Source Code',
     markdown: {
         // 代码显示行号
-        lineNumbers: true,
+        // lineNumbers: true,
     },
-    lastUpdated: 'Last Updated',
     author: 'Hurley Huang',
+    head: [
+        ['link', { rel: 'icon', href: '/icon.png' }]
+    ],
+    plugins: [
+        ['@vuepress/back-to-top'],
+        ['vuepress-plugin-code-copy', {
+            color: "#737378",
+            backgroundTransition: false,
+        }]
+    ],
     themeConfig: {
         search: true, //搜索
         searchMaxSuggestions: 10,
@@ -26,10 +35,16 @@ module.exports = {
                     { text: 'Tech Site', link: 'https://tech.hurley.fun' },
                     { text: 'Portfolio', link: 'https://hurley.fun' }
                 ]
-            },
-            { text: 'Github', link: 'https://github.com/HurleyJames' }
+            }
         ],
         sidebar: loadSidebarContents(), // 侧边栏配置
+        docsDir: 'docs',
+        docsBranch: 'master',
+        lastUpdated: '上次更新',
+        repo: 'HurleyJames/RTFSC-JDK',
+        repoLabel: 'Github',
+        editLinks: true,
+        editLinkText: '在Github上编辑此页'
     }
 }
 
