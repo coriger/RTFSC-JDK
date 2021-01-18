@@ -9,7 +9,7 @@
 本项目主要是存放JDK11的**源码**与**笔记**：
 
 * 对于代码`src`部分，建议在`OracleJDK / OpenJDK 11`的环境下阅读代码，阅读过程中产生的部分笔记会以**注释**的形式写在源码中。
-* 对于文档`docs`部分，建议访问文档的[网站]()进行阅读
+* 对于文档`docs`部分，建议访问文档的[网站](https://rtfsc.hurley.fun/)进行阅读。
 
 ![网站截图](https://i.loli.net/2021/01/17/L2b6moOfSvx7cnz.png)
 
@@ -19,6 +19,18 @@
 2. `src`部分可以使用IntelliJ IDEA打开阅读并调试。请注意，该源代码不支持直接编译，如果想完整编译整个JDK项目，请参考官方教程[Building the JDK](https://hg.openjdk.java.net/jdk/jdk11/raw-file/tip/doc/building.html)。
 3. `docs`部分是源码阅读的笔记，可以`cd docs`进入目录，输入`npm install`安装相关依赖，然后使用`npm run docs:dev`运行启动，可以自行编写。
 4. 如果有缺失遗漏或者源码解读错误的地方，欢迎在[Github Issues](https://github.com/HurleyJames/RTFSC-JDK/issues)中提出，我会尽量及时反馈更新。
+
+## ⚛️ Commit图例
+
+| Emoji | 含义 |
+:-: | ---- |
+| 🎉 | 初始化项目 |
+| 📝 | 更新文档，包括且不仅限于README |
+| 💡 | 发布/增加新的阅读笔记 |
+| ♻️ | 重构/修改已有的阅读笔记 |
+| 🛠 | 新增或更新代码有关的内容 |
+| ✏️ | 校对，更改排版等 |
+| ✅ | 发布测试文件 |
 
 ## 🔗 相关链接
 
