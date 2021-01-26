@@ -3,7 +3,7 @@ const path = require('path');
 const fs = require('fs');
 
 module.exports = {
-    title: 'Java JDK源码笔记',
+    title: 'Java JDK 源码笔记',
     description: 'Reading The Fucking Source Code —— JDK',
     keywords: 'RTFSC, JDK, Source Code',
     markdown: {
@@ -33,7 +33,8 @@ module.exports = {
                 items: [
                     { text: 'Blog', link: 'https://blog.hurley.fun' },
                     { text: 'Tech Site', link: 'https://tech.hurley.fun' },
-                    { text: 'Portfolio', link: 'https://hurley.fun' }
+                    { text: 'Portfolio', link: 'https://hurley.fun' },
+                    { text: 'Interview', link: 'https://interview.hurley.fun' }
                 ]
             }
         ],
@@ -44,7 +45,7 @@ module.exports = {
         repo: 'HurleyJames/RTFSC-JDK',
         repoLabel: 'Github',
         editLinks: true,
-        editLinkText: '在Github上编辑此页'
+        editLinkText: '在 Github 上编辑此页'
     }
 }
 

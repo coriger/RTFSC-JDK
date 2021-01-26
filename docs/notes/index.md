@@ -4,11 +4,11 @@ title: 源码笔记目录
 
 # 阅读顺序
 
-以下是本文档的阅读源码的顺序，标题为包名，后面的序号代表的是**优先级**，1~4优先级依次递减。
+以下是本文档的阅读源码的顺序，标题为包名，后面的序号代表的是**优先级**，1~4 优先级依次递减。
 
 ## java.lang
 
-该包里其实就是Java的基本语法，包括了各种**基本数据类型**（`Integer`、`Long`、`Double`等）、各种**基本类**（`Object`、`Class`、`Enum`、`Thread`等）。
+该包里其实就是 Java 的基本语法，包括了各种**基本数据类型**（`Integer`、`Long`、`Double`等）、各种**基本类**（`Object`、`Class`、`Enum`、`Thread`等）。
 
 ```md
 Object  1
@@ -39,7 +39,7 @@ Void    4
 
 ## java.util
 
-该包里放的都是一些Java的基本工具，包括各种**容器**和**集合**，如`List`、`Map`、`Set`等。
+该包里放的都是一些 Java 的基本工具，包括各种**容器**和**集合**，如`List`、`Map`、`Set`等。
 
 ```md
 AbstractList    1
@@ -75,7 +75,7 @@ WeakHashMap 4
 
 ## java.util.concurrent
 
-这是一个非常著名的，简称`JUC`的包，里面包含了**Java并发**和**多线程**编程相关的代码。
+这是一个非常著名的，简称`JUC`的包，里面包含了 **Java 并发**和**多线程**编程相关的代码。
 
 ```md
 ConcurrentHashMap   1
@@ -106,13 +106,13 @@ AtomicReference 3
 
 ## java.util.function
 
-这里面包括了Java**函数式编程**的常见接口和代码。
+这里面包括了 Java **函数式编程**的常见接口和代码。
 
 ## java.util.stream
 
 ## java.lang.reflect
 
-该包包含了Java**反射**基本元素相关的代码。
+该包包含了 Java **反射**基本元素相关的代码。
 
 ```md
 Field   2
@@ -121,7 +121,7 @@ Method  2
 
 ## java.lang.annotation
 
-该包包含了Java**注解**基本元素相关的代码。
+该包包含了 Java **注解**基本元素相关的代码。
 
 ```md
 Annotation  3
@@ -145,7 +145,7 @@ ReentrantReadWriteLock  2
 
 ## java.io
 
-该包包含了Java传统的输入输出的代码，主要是面向**字节**和**流**的IO操作。
+该包包含了 Java 传统的输入输出的代码，主要是面向**字节**和**流**的 IO 操作。
 
 ```md
 File    2
@@ -157,7 +157,7 @@ Writer  3
 
 ## java.nio
 
-该包包含了Java非阻塞的IO相关的代码，主要是面向**缓冲**、**通道**以及**选择**的IO操作。
+该包包含了 Java 非阻塞的 IO 相关的代码，主要是面向**缓冲**、**通道**以及**选择**的 IO 操作。
 
 ```md
 Buffer  3
@@ -183,7 +183,7 @@ Statement   3
 
 ## java.time
 
-该包包含了Java**新日期**等相关的代码，比如典型的有`DateTimeFormatter`等类。
+该包包含了 Java **新日期**等相关的代码，比如典型的有`DateTimeFormatter`等类。
 
 ## java.math
 
@@ -191,7 +191,7 @@ Statement   3
 
 ## java.net
 
-该包主要包含了Java**网络通信**，比如`Socket`通信等相关的源代码。
+该包主要包含了 Java **网络通信**，比如`Socket`通信等相关的源代码。
 
 ```md
 Socket  2
