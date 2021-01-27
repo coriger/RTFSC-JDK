@@ -20,9 +20,9 @@
 ## 📝 使用说明
 
 1. 将[本项目](https://github.com/HurleyJames/RTFSC-JDK)克隆或者下载到本地。
-2. `src`部分可以使用 IntelliJ IDEA 打开阅读并调试。请注意，该源代码不支持直接编译，如果想完整编译整个 JDK 项目，请参考官方教程[Building the JDK](https://hg.openjdk.java.net/jdk/jdk11/raw-file/tip/doc/building.html)。
+2. `src`部分可以使用 IntelliJ IDEA 打开阅读并调试。请注意，该源代码不支持直接编译，如果想完整编译整个 JDK 项目，请参考官方教程 [Building the JDK](https://hg.openjdk.java.net/jdk/jdk11/raw-file/tip/doc/building.html)。
 3. `docs`部分是源码阅读的笔记，可以`cd docs`进入目录，输入`npm install`安装相关依赖，然后使用`npm run docs:dev`运行启动，可以自行编写。
-4. 如果有缺失遗漏或者源码解读错误的地方，欢迎在[Github Issues](https://github.com/HurleyJames/RTFSC-JDK/issues)中提出，我会尽量及时反馈更新。
+4. 如果有缺失遗漏或者源码解读错误的地方，欢迎在 [Github Issues](https://github.com/HurleyJames/RTFSC-JDK/issues) 中提出，我会尽量及时反馈更新。
 
 ## ⚛️ Commit图例
 
@@ -53,4 +53,4 @@
 
 ## 🙇‍♂️ 鸣谢
 
-此项目受到[LeaningJDK](https://github.com/kangjianwei/LearningJDK)项目的启发，JDK 部分的主要源码也是克隆至该项目，后期加上自己的解读，希望大家到[kangjianwei](https://github.com/kangjianwei)的项目中多多支持与 star。
+此项目受到 [LeaningJDK](https://github.com/kangjianwei/LearningJDK) 项目的启发，JDK 部分的主要源码也是克隆至该项目，后期加上自己的解读，希望大家到 [kangjianwei](https://github.com/kangjianwei) 的项目中多多支持与 star。
