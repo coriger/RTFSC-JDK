@@ -43,7 +43,7 @@ module.exports = {
         docsDir: 'docs',
         docsBranch: 'master',
         lastUpdated: '上次更新',
-        repo: 'HurleyJames/RTFSC-JDK',
+        repo: 'HurleyWong/RTFSC-JDK',
         repoLabel: 'Github',
         editLinks: true,
         editLinkText: '在 Github 上编辑此页'
