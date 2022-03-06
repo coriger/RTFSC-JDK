@@ -13,7 +13,7 @@
 本项目主要是存放 JDK11 的**源码**与**笔记**：
 
 * 对于代码`src`部分，建议在`OracleJDK / OpenJDK 11`的环境下阅读代码，阅读过程中产生的部分笔记会以**注释**的形式写在源码中。
-* 对于文档`docs`部分，建议访问文档的[网站](https://rtfsc.withh.life/)进行阅读。
+* 对于文档`docs`部分，建议访问文档的[网站](https://rtfsc.hurleywong.com/)进行阅读。
 
 ![网站截图](https://i.loli.net/2021/01/17/L2b6moOfSvx7cnz.png)
 
