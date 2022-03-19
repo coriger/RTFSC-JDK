@@ -31,11 +31,11 @@ module.exports = {
             {
                 text: '关于我',
                 items: [
-                    { text: 'Homepage', link: 'https://withh.life'},
-                    { text: 'Blog', link: 'https://blog.withh.life' },
-                    { text: 'Portfolio', link: 'https://portfolio.withh.life' },
-                    { text: 'Soul', link: 'https://soul.withh.life' },
-                    { text: 'Interview', link: 'https://interview.withh.life' }
+                    { text: 'Homepage', link: 'https://hurleywong.com'},
+                    { text: 'Notes', link: 'https://notes.hurleywong.com' },
+                    { text: 'Soul', link: 'https://soul.hurleywong.com' },
+                    { text: 'Interview', link: 'https://interview.hurleywong.com' },
+                    { text: 'Bank', link: 'https://bank.hurleywong.com' 
                 ]
             }
         ],
