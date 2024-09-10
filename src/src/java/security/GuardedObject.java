@@ -46,7 +46,8 @@ package java.security;
  * @author Li Gong
  * @since 1.2
  */
-
+// GuardedObject是一个对象，用于保护对另一个对象的访问。
+// GuardedObject封装了一个目标对象和一个Guard对象，以便只有Guard对象允许时才能访问目标对象。
 public class GuardedObject implements java.io.Serializable {
 
     private static final long serialVersionUID = -5240450096227834308L;

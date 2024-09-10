@@ -93,12 +93,13 @@ import java.util.stream.StreamSupport;
  * @author Roland Schemers
  * @since 1.2
  */
-
+// 权限集合的抽象类
 public abstract class PermissionCollection implements java.io.Serializable {
 
     private static final long serialVersionUID = -6727011328946861783L;
 
     // when set, add will throw an exception.
+    // 提供了一个标志，用于标记PermissionCollection对象是否只读
     private volatile boolean readOnly;
 
     /**
@@ -112,6 +113,7 @@ public abstract class PermissionCollection implements java.io.Serializable {
      *                object is a homogeneous collection and the permission
      *                is not of the correct type.
      */
+    // 将权限对象添加到当前权限对象的集合中。
     public abstract void add(Permission permission);
 
     /**
@@ -123,6 +125,7 @@ public abstract class PermissionCollection implements java.io.Serializable {
      * @return true if "permission" is implied by the  permissions in
      * the collection, false if not.
      */
+    // 检查指定的权限是否被此PermissionCollection中保存的Permission对象集合所隐含。
     public abstract boolean implies(Permission permission);
 
     /**
@@ -131,6 +134,7 @@ public abstract class PermissionCollection implements java.io.Serializable {
      * @return an enumeration of all the Permissions.
      * @see #elementsAsStream()
      */
+    // 返回集合中所有权限对象的枚举。
     public abstract Enumeration<Permission> elements();
 
     /**
@@ -147,6 +151,9 @@ public abstract class PermissionCollection implements java.io.Serializable {
      * @return a stream of all the Permissions.
      * @since 9
      */
+    // 返回一个流，其中包含集合中的所有权限对象。
+    // 集合在执行终端流操作期间不应被修改（请参见#add）。否则，终端流操作的结果是未定义的。
+    // 默认实现创建一个流，其源是从调用#elements()返回的枚举派生的。
     public Stream<Permission> elementsAsStream() {
         int characteristics = isReadOnly()
                 ? Spliterator.NONNULL | Spliterator.IMMUTABLE

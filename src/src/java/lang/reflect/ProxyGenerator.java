@@ -331,6 +331,8 @@ class ProxyGenerator {
     private List<FieldInfo> fields = new ArrayList<>(); // 字段列表
     
     /** MethodInfo struct for each method of generated class */
+    // 方法列表（包括构造器和初始化块）
+    // 这里存放代理类的所有函数体 包括构造函数
     private List<MethodInfo> methods = new ArrayList<>();   // 方法列表（包括构造器和初始化块）
     
     /**
@@ -441,6 +443,7 @@ class ProxyGenerator {
         
         /* ============================================================
          * Step 1: Assemble ProxyMethod objects for all methods to generate proxy dispatching code for.
+         * 步骤1：为所有方法组装ProxyMethod对象
          * ============================================================
          */
         
@@ -449,6 +452,7 @@ class ProxyGenerator {
          * This is done before the methods from the proxy interfaces
          * so that the methods from java.lang.Object take precedence over duplicate methods in the proxy interfaces.
          */
+        // 记录 java.lang.Object 的 hashCode、equals 和 toString 方法。
         addProxyMethod(hashCodeMethod, Object.class);
         addProxyMethod(equalsMethod, Object.class);
         addProxyMethod(toStringMethod, Object.class);
@@ -461,6 +465,7 @@ class ProxyGenerator {
         // 遍历代理接口，将接口方法添加到代理类中
         for (Class<?> intf : interfaces) {
             for (Method m : intf.getMethods()) {
+                // 这里只代理非静态方法
                 if (!Modifier.isStatic(m.getModifiers())) {
                     addProxyMethod(m, intf);
                 }
@@ -481,8 +486,10 @@ class ProxyGenerator {
          * ============================================================
          */
         try {
+            // 生成代理类的构造方法
             methods.add(generateConstructor());
-            
+
+            // 遍历需要代理的函数
             for (List<ProxyMethod> sigmethods : proxyMethods.values()) {
                 for (ProxyMethod pm : sigmethods) {
                     // add static field for method's Method object
@@ -728,10 +735,15 @@ nextNewReturnType:
      */
     // 字段信息
     private class FieldInfo {
+        // 字段访问修饰符 比如 public static final,对应常量 ACC_PUBLIC ACC_STATIC ACC_FINAL
         public int accessFlags;
+        // 字段名称
         public String name;
+        // 字段描述符 比如 I 对应 int  Ljava/lang/String; 对应 String [I 对应 int[] [[I 对应 int[][]
         public String descriptor;
-        
+
+        // 比如一个字段   public static final int a = 1;
+        // 对应的字段信息是：FieldInfo("a", "I", ACC_PUBLIC | ACC_STATIC | ACC_FINAL)
         public FieldInfo(String name, String descriptor, int accessFlags) {
             this.name = name;
             this.descriptor = descriptor;
@@ -741,10 +753,14 @@ nextNewReturnType:
              * Make sure that constant pool indexes are reserved for the
              * following items before starting to write the final class file.
              */
+            // 为字段名称和描述符在常量池中分配索引
             cp.getUtf8(name);
             cp.getUtf8(descriptor);
         }
-        
+
+        // 字段信息写入到输出流
+        // 写入的格式：accessFlags name_index descriptor_index attributes_count
+        // 通过这些index可以在常量池中找到对应的字段名称和描述符
         public void write(DataOutputStream out) throws IOException {
             /*
              * Write all the items of the "field_info" structure.
@@ -768,15 +784,25 @@ nextNewReturnType:
      */
     // 方法信息
     private class MethodInfo {
+        // 方法访问修饰符 比如 public static final,对应常量 ACC_PUBLIC ACC_STATIC ACC_FINAL
         public int accessFlags;
+        // 方法名称
         public String name;
+        // 方法描述符 比如 ()V 对应 void  (Ljava/lang/String;)I 对应 int
         public String descriptor;
+        // 方法最大操作数栈 比如方法中最大的操作数栈深度
         public short maxStack;
+        // 方法最大局部变量数 比如方法中最大的局部变量数
         public short maxLocals;
+        // 方法字节码
         public ByteArrayOutputStream code = new ByteArrayOutputStream();
+        // 方法异常表
         public List<ExceptionTableEntry> exceptionTable = new ArrayList<ExceptionTableEntry>();
+        // 方法声明的异常
         public short[] declaredExceptions;
-        
+
+        // 比如一个方法   public static final void a() {}
+        // 对应的方法信息是：MethodInfo("a", "()V", ACC_PUBLIC | ACC_STATIC | ACC_FINAL)
         public MethodInfo(String name, String descriptor, int accessFlags) {
             this.name = name;
             this.descriptor = descriptor;
@@ -791,7 +817,9 @@ nextNewReturnType:
             cp.getUtf8("Code");
             cp.getUtf8("Exceptions");
         }
-        
+
+        // 方法信息写入到输出流
+        // 写入的格式：accessFlags name_index descriptor_index attributes_count
         public void write(DataOutputStream out) throws IOException {
             /*
              * Write all the items of the "method_info" structure.
@@ -877,13 +905,20 @@ nextNewReturnType:
      * being generated: a method whose implementation will encode and
      * dispatch invocations to the proxy instance's invocation handler.
      */
+    // 代理方法
     private class ProxyMethod {
-        
+
+        // 方法名称
         public String methodName;
+        // 形参类型
         public Class<?>[] parameterTypes;
+        // 返回类型
         public Class<?> returnType;
+        // 异常类型
         public Class<?>[] exceptionTypes;
+        // 代理方法所在类
         public Class<?> fromClass;
+        // 代理方法字段名称
         public String methodFieldName;
     
         private ProxyMethod(String methodName, Class<?>[] parameterTypes, Class<?> returnType, Class<?>[] exceptionTypes, Class<?> fromClass) {
@@ -899,38 +934,51 @@ nextNewReturnType:
          * Return a MethodInfo object for this method, including generating
          * the code and exception table entry.
          */
+        // 生成代理方法的字节码
         private MethodInfo generateMethod() throws IOException {
+            // 获取方法描述符，格式为：(参数类型1 参数类型2 ...)返回类型，比如：(Ljava/lang/String;)I
             String desc = getMethodDescriptor(parameterTypes, returnType);
+            // 创建 MethodInfo 实例，传入方法名称、描述符和访问标志
             MethodInfo minfo = new MethodInfo(methodName, desc, ACC_PUBLIC | ACC_FINAL);
-            
+
+            // 为每个参数分配局部变量槽位，并计算下一个可用槽位
             int[] parameterSlot = new int[parameterTypes.length];
             int nextSlot = 1;
             for (int i = 0; i < parameterSlot.length; i++) {
                 parameterSlot[i] = nextSlot;
                 nextSlot += getWordsPerType(parameterTypes[i]);
             }
+            // 计算局部变量槽位
             int localSlot0 = nextSlot;
             short pc, tryBegin = 0, tryEnd;
-            
+
+            // 初始化 DataOutputStream，用于写入字节码
             DataOutputStream out = new DataOutputStream(minfo.code);
-            
+
+            // 加载 `this` 引用
             code_aload(0, out);
-    
+
+            // 获取并加载 `InvocationHandler` 字段
             out.writeByte(opc_getfield);
             out.writeShort(cp.getFieldRef(superclassName, handlerFieldName, "Ljava/lang/reflect/InvocationHandler;"));
-            
+
+            // 加载 `this` 引用
             code_aload(0, out);
-    
+
+            // 获取并加载 `Method` 字段
             out.writeByte(opc_getstatic);
             out.writeShort(cp.getFieldRef(dotToSlash(className), methodFieldName, "Ljava/lang/reflect/Method;"));
-            
+
+            // 如果有参数，创建 `Object` 数组并包装参数
             if (parameterTypes.length > 0) {
-                
+                // 推送参数长度
                 code_ipush(parameterTypes.length, out);
-                
+
+                // 创建 `Object` 数组
                 out.writeByte(opc_anewarray);
                 out.writeShort(cp.getClass("java/lang/Object"));
-                
+
+                // 包装参数
                 for (int i = 0; i < parameterTypes.length; i++) {
                     out.writeByte(opc_dup);
                     code_ipush(i, out);
@@ -938,63 +986,80 @@ nextNewReturnType:
                     out.writeByte(opc_aastore);
                 }
             } else {
+                // 如果没有参数，推送 `null`
                 out.writeByte(opc_aconst_null);
             }
-    
+
+            // 调用 `InvocationHandler.invoke` 方法
             out.writeByte(opc_invokeinterface);
             out.writeShort(cp.getInterfaceMethodRef("java/lang/reflect/InvocationHandler", "invoke", "(Ljava/lang/Object;Ljava/lang/reflect/Method;" + "[Ljava/lang/Object;)Ljava/lang/Object;"));
             out.writeByte(4);
             out.writeByte(0);
-            
+
+            // 处理返回值或异常
             if (returnType == void.class) {
                 out.writeByte(opc_pop);
                 out.writeByte(opc_return);
             } else {
                 codeUnwrapReturnValue(returnType, out);
             }
-            
+
+            // 记录字节码结束位置
             tryEnd = pc = (short) minfo.code.size();
-            
+
+            // 处理异常表
             List<Class<?>> catchList = computeUniqueCatchList(exceptionTypes);
             if (catchList.size() > 0) {
-                
+                // 为每个异常类型添加异常处理表
                 for (Class<?> ex : catchList) {
                     minfo.exceptionTable.add(new ExceptionTableEntry(tryBegin, tryEnd, pc, cp.getClass(dotToSlash(ex.getName()))));
                 }
-                
+
+                // 抛出异常
                 out.writeByte(opc_athrow);
-                
+
+                // 记录字节码位置
                 pc = (short) minfo.code.size();
-    
+
+                // 添加通用异常处理表
                 minfo.exceptionTable.add(new ExceptionTableEntry(tryBegin, tryEnd, pc, cp.getClass("java/lang/Throwable")));
-                
+
+                // 存储异常
                 code_astore(localSlot0, out);
-    
+
+                // 创建 `UndeclaredThrowableException` 实例
                 out.writeByte(opc_new);
                 out.writeShort(cp.getClass("java/lang/reflect/UndeclaredThrowableException"));
-                
+
+                // 复制栈顶元素
                 out.writeByte(opc_dup);
-                
+
+                // 加载异常
                 code_aload(localSlot0, out);
-                
+
+                // 调用 `UndeclaredThrowableException` 构造方法
                 out.writeByte(opc_invokespecial);
-    
                 out.writeShort(cp.getMethodRef("java/lang/reflect/UndeclaredThrowableException", "<init>", "(Ljava/lang/Throwable;)V"));
-                
+
+                // 抛出异常
                 out.writeByte(opc_athrow);
             }
-            
+
+            // 检查字节码大小是否超过限制
             if (minfo.code.size() > 65535) {
                 throw new IllegalArgumentException("code size limit exceeded");
             }
-            
+
+            // 设置方法的最大栈深度和局部变量数
             minfo.maxStack = 10;
             minfo.maxLocals = (short) (localSlot0 + 1);
+            // 设置方法的声明异常
             minfo.declaredExceptions = new short[exceptionTypes.length];
             for (int i = 0; i < exceptionTypes.length; i++) {
                 minfo.declaredExceptions[i] = cp.getClass(dotToSlash(exceptionTypes[i].getName()));
             }
-            
+
+            // 返回 MethodInfo 实例
             return minfo;
         }
     
@@ -1139,6 +1204,7 @@ nextNewReturnType:
     /**
      * Generate the static initializer method for the proxy class.
      */
+    // 生成静态初始化方法
     private MethodInfo generateStaticInitializer() throws IOException {
         MethodInfo minfo = new MethodInfo("<clinit>", "()V", ACC_STATIC);
         
@@ -1378,9 +1444,11 @@ nextNewReturnType:
      * other than "void".  See JVMS section 4.3.2.
      */
     private static String getFieldType(Class<?> type) {
+        // 8种基本类型：byte, short, int, long, float, double, char, boolean
         if(type.isPrimitive()) {
             return PrimitiveTypeInfo.get(type).baseTypeString;
         } else if(type.isArray()) {
+            // 数组类型
             /*
              * According to JLS 20.3.2, the getName() method on Class does
              * return the VM type descriptor format for array classes (only);
@@ -1390,6 +1458,7 @@ nextNewReturnType:
              */
             return type.getName().replace('.', '/');
         } else {
+            // 对象类型  比如：Ljava/lang/String;
             return "L" + dotToSlash(type.getName()) + ";";
         }
     }
@@ -1611,6 +1680,7 @@ nextException:
          * and for assigning the next index value.  Note that element 0
          * of this list corresponds to constant pool index 1.
          */
+        // 常量池 往里面添加常量 通过索引获取常量
         private List<Entry> pool = new ArrayList<>(32);
         
         /**
@@ -1762,6 +1832,7 @@ nextException:
             if(index != null) {
                 return index.shortValue();
             } else {
+                // 索引不存在
                 if(readOnly) {
                     throw new InternalError("late constant pool addition: " + key);
                 }

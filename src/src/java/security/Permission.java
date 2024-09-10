@@ -67,6 +67,7 @@ public abstract class Permission implements Guard, java.io.Serializable {
 
     private static final long serialVersionUID = -5636570222231596674L;
 
+    // 权限名称
     private String name;
 
     /**
@@ -100,6 +101,8 @@ public abstract class Permission implements Guard, java.io.Serializable {
      */
     public void checkGuard(Object object) throws SecurityException {
         SecurityManager sm = System.getSecurityManager();
+        // 如果安全管理器不为空，则调用安全管理器的checkPermission方法检查权限
+        // 检查当前权限是否被允许
         if (sm != null) sm.checkPermission(this);
     }
 
@@ -119,7 +122,7 @@ public abstract class Permission implements Guard, java.io.Serializable {
      * @return true if the specified permission is implied by this object,
      * false if not.
      */
-
+    // 检查当前权限是否包含指定权限
     public abstract boolean implies(Permission permission);
 
     /**
@@ -190,7 +193,7 @@ public abstract class Permission implements Guard, java.io.Serializable {
      * @return the actions of this Permission.
      *
      */
-
+    // 获取权限的操作 例如read,write
     public abstract String getActions();
 
     /**
@@ -207,7 +210,8 @@ public abstract class Permission implements Guard, java.io.Serializable {
      * @return a new PermissionCollection object for this type of Permission, or
      * null if one is not defined.
      */
-
+    // 创建一个空的PermissionCollection对象 用于存储权限 例如FilePermissionCollection 用于存储FilePermission
+    // 如果子类需要存储权限集合，则需要重写此方法 返回一个PermissionCollection对象
     public PermissionCollection newPermissionCollection() {
         return null;
     }

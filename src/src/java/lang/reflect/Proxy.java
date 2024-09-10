@@ -294,7 +294,7 @@ import static java.lang.module.ModuleDescriptor.Modifier.SYNTHETIC;
  * }
  *
  * 则需要构造一个被代理类：
- * public class SubjectImpl interface Subject {
+ * public class SubjectImpl implements Subject {
  *     // 被代理方法
  *     void request() {
  *     }
@@ -523,8 +523,8 @@ public class Proxy implements Serializable {
      * 工厂方法：生成动态代理对象
      *
      * loader    ：用于加载代理对象的类加载器，一般与被代理对象的类加载器一致
-     * interfaces：代理接口
-     * h         ：回调引用，可以在回调引用的内部持有被代理对象的引用，或者，回调引用本身也是被代理对象
+     * interfaces：被代理对象实现的接口列表
+     * h         ：真正代理后执行的处理器，内部持有被代理对象的引用以及代理的核心业务逻辑
      */
     @CallerSensitive
     public static Object newProxyInstance(ClassLoader loader, Class<?>[] interfaces, InvocationHandler h) {
@@ -705,9 +705,8 @@ public class Proxy implements Serializable {
             
             // 返回subCLV在loader中的类加载器局部缓存中映射的代理类构造器，如果不存在，则计算出新的代理类构造器并缓存起来
             return subCLV.computeIfAbsent(loader, (cl, clv) -> new ProxyBuilder(cl, clv.key()).build());
-            
-            // 如果存在多个被代理接口
         } else {
+            // 如果存在多个被代理接口
             // interfaces cloned
             final Class<?>[] intfsArray = interfaces.clone();
             

@@ -42,6 +42,8 @@ import sun.security.util.Debug;
  * @since 1.2
  */
 // 类加载器的安全层
+// 扩展了ClassLoader，定义类的时候关联上了代码源和权限
+// 这里的代码源指的字节码的来源，比如网络、文件、动态生成等，CodeSource对象主要封装了URL和证书
 public class SecureClassLoader extends ClassLoader {
     /**
      * If initialization succeed this is set to true and security checks will
@@ -217,6 +219,7 @@ public class SecureClassLoader extends ClassLoader {
      *
      * @return the permissions granted to the codesource.
      */
+    // 获取指定CodeSource的权限
     protected PermissionCollection getPermissions(CodeSource codesource) {
         check();
         return new Permissions(); // ProtectionDomain defers the binding

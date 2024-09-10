@@ -35,7 +35,7 @@ module.exports = {
                     { text: 'Notes', link: 'https://notes.hurleywong.com' },
                     { text: 'Soul', link: 'https://soul.hurleywong.com' },
                     { text: 'Interview', link: 'https://interview.hurleywong.com' },
-                    { text: 'Bank', link: 'https://bank.hurleywong.com' 
+                    { text: 'Bank', link: 'https://bank.hurleywong.com'},
                 ]
             }
         ],

@@ -35,7 +35,7 @@ import java.security.cert.CertPath;
  * @since 1.5
  * @author Vincent Ryan
  */
-
+// 这个类封装了关于代码签名者的信息。它是不可变的。
 public final class CodeSigner implements Serializable {
 
     private static final long serialVersionUID = 6819288105193937581L;

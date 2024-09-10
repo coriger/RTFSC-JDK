@@ -47,7 +47,7 @@ import sun.security.util.IOUtils;
  * @author Roland Schemers
  * @since 1.2
  */
-
+// 这个类主要是用来描述代码来源的，包括代码的位置和代码的签名，这里的代码指的是java代码或者是java类
 public class CodeSource implements java.io.Serializable {
 
     private static final long serialVersionUID = 4977541819976013951L;
@@ -61,12 +61,24 @@ public class CodeSource implements java.io.Serializable {
 
     /*
      * The code signers.
+     * 代码签名者，就是写这个代码的人，这个代码是谁写的
      */
     private transient CodeSigner[] signers = null;
 
     /*
      * The code signers. Certificate chains are concatenated.
+     * 证书链，这个代码是由谁签名的，这个代码是谁签名的
+     * 一般这个签名是由数字证书来签名的，这个数字证书是由CA机构颁发的
+     * 签名主要是为了保证代码的安全性，防止代码被篡改，如果代码被篡改了，那么签名就会失效
+     * 代码签名的过程是这样的，首先代码的作者会生成一个数字证书，然后将这个数字证书发送给CA机构，CA机构会对这个数字证书进行签名，然后将签名后的数字证书发送给代码的作者
+     * 代码的作者在发布代码的时候，会将这个数字证书和代码一起发布，这样别人就可以通过这个数字证书来验证代码的真实性
+     * 代码的签名是通过数字证书来实现的，数字证书是通过非对称加密算法来实现的，非对称加密算法是指加密和解密使用的是不同的密钥，加密使用的是公钥，解密使用的是私钥
+     * 数字证书是通过CA机构来颁发的，CA机构是一个权威的机构，它会对数字证书进行签名，这样别人就可以通过CA机构的公钥来验证数字证书的真实性
+     * 数字证书中包含了很多信息，比如数字证书的持有者，数字证书的颁发者，数字证书的有效期等等
+     * 数字证书是通过X.509标准来实现的，X.509是一个公钥证书的标准，它定义了公钥证书的格式，公钥证书的内容，公钥证书的验证等等
+     * 数字证书中包含了公钥，公钥是用来加密的，私钥是用来解密的
      */
+    // 一系列的证书
     private transient java.security.cert.Certificate[] certs = null;
 
     // cached SocketPermission used for matchLocation

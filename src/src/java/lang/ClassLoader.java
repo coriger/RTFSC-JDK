@@ -880,7 +880,8 @@ public abstract class ClassLoader {
         return defineClass(null, b, off, len, null);
     }
     
-    
+
+    // 这里加载字节码到jvm 并返回Class对象  这里肯定是进行了Class的初始化
     static native Class<?> defineClass1(ClassLoader loader, String className, byte[] b, int off, int len, ProtectionDomain pd, String source);
     
     static native Class<?> defineClass2(ClassLoader loader, String className, ByteBuffer b, int off, int len, ProtectionDomain pd, String source);
@@ -931,6 +932,7 @@ public abstract class ClassLoader {
      */
     // 查找指定的类，如果该类未被当前类加载器加载，返回null
     protected final Class<?> findLoadedClass(String className) {
+        // 检验类名是否合法
         if(!checkName(className)) {
             return null;
         }
@@ -951,6 +953,8 @@ public abstract class ClassLoader {
     }
     
     // 查找指定的类，如果该类未被当前类加载器加载，返回null
+    // 通过本地方法实现 返回Class对象
+    // 这里通过JNI调用本地方法找到类，JVM负责把C++返回的jclass引用转换成Java中的class对象
     private final native Class<?> findLoadedClass0(String className);
     
     // 查找指定的类，如果该类未被bootstrap类加载器加载，返回null
@@ -2165,7 +2169,8 @@ public abstract class ClassLoader {
         if((className == null) || (className.length() == 0)) {
             return true;
         }
-        
+
+        // 判断是否为数组类
         return (className.indexOf('/') == -1) && (className.charAt(0) != '[');
     }
     

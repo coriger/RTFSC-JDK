@@ -250,6 +250,9 @@ public final class Class<T> implements Serializable, GenericDeclaration, Type, A
      * Private constructor. Only the Java Virtual Machine creates Class objects.
      * This constructor is not used and prevents the default constructor being generated.
      */
+    // 这个私有的构造器是在jvm创建Class对象的时候调用的，那个是在native函数中调用的
+    // 也就是在类文件被加载的过程中执行初始化
+    // 所以这里是有一部分jvm的代码缺失了
     private Class(ClassLoader loader, Class<?> arrayComponentType) {
         // Initialize final field for classLoader.
         // The initialization value of non-null prevents future JIT optimizations from assuming this final field is null.

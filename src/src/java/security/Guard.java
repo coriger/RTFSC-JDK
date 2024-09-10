@@ -40,7 +40,7 @@ package java.security;
  * @author Li Gong
  * @since 1.2
  */
-
+// 这个接口表示一个守卫，它是一个用于保护对另一个对象的访问的对象。
 public interface Guard {
 
     /**
@@ -53,5 +53,6 @@ public interface Guard {
      * @exception SecurityException if access is denied.
      *
      */
+    // 确定是否允许访问受保护的对象object。如果允许访问，则返回。否则，抛出SecurityException。
     void checkGuard(Object object) throws SecurityException;
 }
